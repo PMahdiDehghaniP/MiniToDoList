@@ -8,6 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import { AccountCircleRounded, KeyRounded } from "@mui/icons-material";
+import { Helmet } from "react-helmet-async";
 import { signUpValidationSchema } from "../validation/validte";
 import { useFormik } from "formik";
 import { useAddNewUserMutation } from "../api";
@@ -53,6 +54,9 @@ export const SignUp = () => {
         justifyContent="center"
         alignItems="center"
       >
+        <Helmet>
+          <title>ثبت نام</title>
+        </Helmet>
         {isLoading ? (
           <Spinner />
         ) : (

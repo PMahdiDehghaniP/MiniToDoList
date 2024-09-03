@@ -21,6 +21,7 @@ import {
   AccountCircleRounded,
 } from "@mui/icons-material";
 import Particles from "react-particles";
+import { Helmet } from "react-helmet-async";
 import { formParticle } from "../constants/particles";
 import { useSelector } from "react-redux";
 import { useGetAllUsersQuery } from "../api";
@@ -77,6 +78,9 @@ const Login = () => {
       justifyContent="center"
       alignItems="center"
     >
+      <Helmet>
+        <title> ورود به حساب کاربری</title>
+      </Helmet>
       {isLoading ? (
         <Spinner />
       ) : (
