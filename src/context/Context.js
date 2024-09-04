@@ -6,4 +6,6 @@ export const projectContext = createContext({
   handleLogOut: () => {},
   isAuthenticated: "",
   handleSetIsAuthenticated: () => {},
+  loggedInUser: null,
+  handleUserChange: () => {},
 });

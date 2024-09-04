@@ -7,31 +7,47 @@ import { useState, useEffect } from "react";
 import { projectContext } from "./context/Context";
 import { Login, SignUp, MainPage } from "./Pages/index";
 import "./App.css";
+import { useSelector } from "react-redux";
+import { selectUserById } from "./reducers/userSlice";
+
 function App() {
-  //states
+  // states
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  //handleFunctions
+  const [loggedInUser, handleUserChange] = useState(null);
+
+  // handleFunctions
   const handleSetIsAuthenticated = (value) => setIsAuthenticated(value);
   const handleRememberMeChange = (value) => setRememberMe(value);
+
+  const userToken = localStorage.getItem("token");
+  const currentUser = useSelector(selectUserById(userToken));
   useEffect(() => {
     const isUserLoggedIn = localStorage.getItem("userLoggedIn");
-    if (isUserLoggedIn === "true") {
+    if (isUserLoggedIn === "true" && userToken) {
+      handleUserChange(currentUser ? currentUser : null);
       setIsAuthenticated(true);
     }
-  }, []);
-  //handleFunctions
-  const handleLogin = (rememberMe) => {
-    if (rememberMe) {
+  }, [currentUser, userToken]);
+
+  // handleFunctionsّ
+  const handleLogin = (rememberMe, user) => {
+    if (rememberMe && user.id) {
       localStorage.setItem("userLoggedIn", "true");
+      localStorage.setItem("token", user.id);
+      handleUserChange(user);
       setIsAuthenticated(true);
     }
   };
+
   const handleLogOut = () => {
     localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("token");
+    handleUserChange(null);
     setIsAuthenticated(false);
   };
-  //Router
+
+  // Router
   const router = createBrowserRouter([
     {
       path: "/",
@@ -46,16 +62,19 @@ function App() {
       element: isAuthenticated ? <Navigate to="/" /> : <SignUp />,
     },
   ]);
+
   return (
     <>
       <projectContext.Provider
         value={{
           rememberMe,
           isAuthenticated,
+          loggedInUser,
           handleLogOut,
           handleLogin,
           handleSetIsAuthenticated,
           handleRememberMeChange,
+          handleUserChange,
         }}
       >
         <RouterProvider router={router} />

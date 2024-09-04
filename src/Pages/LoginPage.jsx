@@ -27,12 +27,14 @@ import { useSelector } from "react-redux";
 import { useGetAllUsersQuery } from "../api";
 import Spinner from "../components/Spinner";
 import { projectContext } from "../context/Context";
+
 const Login = () => {
   const {
     rememberMe,
     handleRememberMeChange,
     handleSetIsAuthenticated,
     handleLogin,
+    handleUserChange,
   } = useContext(projectContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -61,9 +63,12 @@ const Login = () => {
       const { email, password } = values;
       const user = selectUserByEmailAndPassword(email, password);
       if (user) {
-        handleLogin(rememberMe);
+        handleLogin(rememberMe,user);
         toast.success(`${user.firstName} ${user.lastName} خوش آمدید`);
         handleSetIsAuthenticated(true);
+        if (!rememberMe) {
+          handleUserChange(user);
+        }
         navigate("/");
       } else {
         toast.error("چنین  کاربری  یافت نشد مجددا تلاش کنید");

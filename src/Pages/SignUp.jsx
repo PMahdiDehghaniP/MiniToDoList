@@ -38,7 +38,7 @@ export const SignUp = () => {
           email,
           password,
         });
-        toast.success("کاربر با موفقیت  ساخته شد.");
+        toast.success(".کاربر با موفقیت  ساخته شد");
         formik.resetForm();
         navigate("/login");
       } catch (error) {

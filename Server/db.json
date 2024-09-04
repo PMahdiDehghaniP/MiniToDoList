@@ -27,6 +27,13 @@
       "lastName": "Mokhtari",
       "email": "PaniMokhtari@gmail.com",
       "password": "PaniPani@@1384"
+    },
+    {
+      "id": "XzosXtyQ5OH3xtCtx3Alt",
+      "firstName": "Mani",
+      "lastName": "Norani",
+      "email": "mmdNorani@gmail.com",
+      "password": "ManiMani@@"
     }
   ],
   "userTasks": []

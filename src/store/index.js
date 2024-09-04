@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { projectApi } from "../api";
-import usersReducer from "../reducers/loginSlice";
+import usersReducer from "../reducers/userSlice";
 export const projectStore = configureStore({
   reducer: {
     users: usersReducer,

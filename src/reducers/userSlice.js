@@ -1,5 +1,10 @@
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createEntityAdapter,
+  createSelector,
+} from "@reduxjs/toolkit";
 import { projectApi } from "../api";
+import { useSelector } from "react-redux";
 const userAdaptor = createEntityAdapter({
   selectId: (user) => user.id,
   sortComparer: (a, b) => a.email.localeCompare(b.email),
@@ -30,6 +35,7 @@ const userSlice = createSlice({
     );
   },
 });
-export const { selectAll: selectAllUsers, selectById: selectUserById } =
-  userAdaptor.getSelectors((state) => state.users);
+export const selectUsers = (state) => state.users.entities;
+export const selectUserById = (userId) =>
+  createSelector([selectUsers], (users) => users[userId]);
 export default userSlice.reducer;
