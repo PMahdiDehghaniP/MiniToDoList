@@ -5,10 +5,11 @@ import {
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { projectContext } from "./context/Context";
-import { Login, SignUp, MainPage } from "./Pages/index";
+import { Login, SignUp, MainPage, NotFoundPage } from "./Pages/index";
 import "./App.css";
 import { useSelector } from "react-redux";
 import { selectUserById } from "./reducers/userSlice";
+import EditPage from "./Pages/EditPage";
 
 function App() {
   // states
@@ -61,6 +62,11 @@ function App() {
       path: "/signup",
       element: isAuthenticated ? <Navigate to="/" /> : <SignUp />,
     },
+    {
+      path: "/editTask/:taskId",
+      element: isAuthenticated ? <EditPage /> : <Login />,
+    },
+    { path: "*", element: <NotFoundPage /> },
   ]);
 
   return (

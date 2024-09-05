@@ -219,7 +219,7 @@ const Login = () => {
                   />
                   Remember Me
                 </Box>
-                <CustomButton>Log In</CustomButton>
+                <CustomButton type={"submit"}>Log In</CustomButton>
               </form>
             </CardContent>
           </Card>

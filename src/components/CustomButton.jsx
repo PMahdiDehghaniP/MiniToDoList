@@ -1,11 +1,12 @@
 import { Button } from "@mui/material";
 
-const CustomButton = ({ children }) => {
+const CustomButton = ({ children, type, onClickFunc }) => {
   return (
     <>
       <Button
-        type="submit"
+        type={type}
         variant="contained"
+        onClick={onClickFunc}
         color="primary"
         sx={{
           my: 3,

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { projectContext } from "../context/Context";
 import Spinner, { ToDoSpinner } from "../components/Spinner";
@@ -8,9 +8,10 @@ import ToDoCard from "../components/ToDoCard";
 import { useUpdateTasksMutation } from "../api";
 import { nanoid } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { LogoutRounded } from "@mui/icons-material";
 const MainPage = () => {
-  const { loggedInUser, handleUserChange } = useContext(projectContext);
-  console.log(loggedInUser);
+  const { loggedInUser, handleUserChange, handleLogOut } =
+    useContext(projectContext);
   const [updateTasks, { isLoading }] = useUpdateTasksMutation();
   const newTaskRef = useRef();
   const submitNewTask = async () => {
@@ -70,6 +71,20 @@ const MainPage = () => {
               <Typography sx={{ color: "white" }}>
                 {loggedInUser.firstName} {loggedInUser.lastName}: کاربر وارد شده
               </Typography>
+              <Box display="flex">
+                <Button
+                  onClick={() => handleLogOut()}
+                  sx={{
+                    color: "whitesmoke",
+                    "&:hover": {
+                      color: "#fc284c",
+                    },
+                  }}
+                >
+                  <Typography>Log Out</Typography>
+                  <LogoutRounded />
+                </Button>
+              </Box>
             </Box>
             <Box
               width="80%"

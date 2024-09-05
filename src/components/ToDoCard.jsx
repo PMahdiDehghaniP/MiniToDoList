@@ -11,9 +11,14 @@ import { projectContext } from "../context/Context";
 import { useUpdateTasksMutation } from "../api";
 import { toast } from "react-toastify";
 import { ToDoSpinner } from "./Spinner";
+import { useNavigate } from "react-router-dom";
 const ToDoCard = ({ text, id, isDone }) => {
+  const navigate = useNavigate();
   const { loggedInUser, handleUserChange } = useContext(projectContext);
   const [updateTasks, { isLoading }] = useUpdateTasksMutation();
+  const navigateEditPage = () => {
+    navigate(`/editTask/${id}`);
+  };
   const deleteTask = async () => {
     const updatedTask = loggedInUser.tasks.filter((task) => task.id !== id);
     const updatedUserInfo = { ...loggedInUser, tasks: [...updatedTask] };
@@ -25,6 +30,7 @@ const ToDoCard = ({ text, id, isDone }) => {
       toast.error("مشکلی پیش اومده  مجددا  تلاش فرمایید");
     }
   };
+
   const changeTaskStatus = async () => {
     const updatedTasks = loggedInUser.tasks.map((task) =>
       task.id === id ? { ...task, isDone: !task.isDone } : task
@@ -78,7 +84,7 @@ const ToDoCard = ({ text, id, isDone }) => {
                   <DoneRounded />
                 )}
               </CheckButton>
-              <CheckButton bgcolor={"blue"}>
+              <CheckButton bgcolor={"blue"} onClickFunction={navigateEditPage}>
                 <EditRounded />
               </CheckButton>
               <CheckButton bgcolor={"red"} onClickFunction={deleteTask}>

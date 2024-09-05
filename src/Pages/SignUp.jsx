@@ -175,7 +175,15 @@ export const SignUp = () => {
                     }}
                     sx={{ mb: 4 }}
                   />
-                  <CustomButton>Sign Up</CustomButton>
+                  <Box display="flex" gap={4}>
+                    <CustomButton
+                      type={"button"}
+                      onClickFunc={() => navigate("/login")}
+                    >
+                      LoginPage
+                    </CustomButton>
+                    <CustomButton type={"submit"}>Sign Up</CustomButton>
+                  </Box>
                 </form>
               </CardContent>
             </Card>
