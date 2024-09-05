@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const projectApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9000/" }),
-  tagTypes: ["USERS"],
+  tagTypes: ["USERS", "TASKS"],
   endpoints: (builder) => ({
     getAllUsers: builder.query({
       query: () => "users",
@@ -16,24 +16,18 @@ export const projectApi = createApi({
       }),
       invalidatesTags: ["USERS"],
     }),
-    editUserData: builder.mutation({
-      query: ({ userId, userData }) => ({
-        url: `users/${userId}`,
+    updateTasks: builder.mutation({
+      query: (user) => ({
+        url: `users/${user.id}`,
         method: "PUT",
-        body: userData,
+        body: user,
       }),
-    }),
-    deleteUser: builder.mutation({
-      query: (userId) => ({
-        url: `users/${userId}`,
-        method: "DELETE",
-      }),
+      invalidatesTags: ["TASKS"],
     }),
   }),
 });
 export const {
   useAddNewUserMutation,
-  useDeleteUserMutation,
-  useEditUserDataMutation,
   useGetAllUsersQuery,
+  useUpdateTasksMutation
 } = projectApi;

@@ -7,7 +7,6 @@ import {
   TextField,
   InputAdornment,
   IconButton,
-  Button,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -27,6 +26,7 @@ import { useSelector } from "react-redux";
 import { useGetAllUsersQuery } from "../api";
 import Spinner from "../components/Spinner";
 import { projectContext } from "../context/Context";
+import CustomButton from "../components/CustomButton";
 
 const Login = () => {
   const {
@@ -63,7 +63,7 @@ const Login = () => {
       const { email, password } = values;
       const user = selectUserByEmailAndPassword(email, password);
       if (user) {
-        handleLogin(rememberMe,user);
+        handleLogin(rememberMe, user);
         toast.success(`${user.firstName} ${user.lastName} خوش آمدید`);
         handleSetIsAuthenticated(true);
         if (!rememberMe) {
@@ -219,34 +219,7 @@ const Login = () => {
                   />
                   Remember Me
                 </Box>
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    my: 3,
-                    width: "60%",
-                    px: 4,
-                    py: 1.5,
-                    borderRadius: "50px",
-                    backgroundColor: "#3f51b5",
-                    color: "#fff",
-                    fontSize: "1rem",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-                    transition:
-                      "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                      backgroundColor: "#303f9f",
-                      boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-                    },
-                  }}
-                >
-                  Login
-                </Button>
+                <CustomButton>Log In</CustomButton>
               </form>
             </CardContent>
           </Card>
